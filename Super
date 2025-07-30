@@ -1,0 +1,195 @@
+What is Super Keyword in java?
+
+
+0)The super keyword in Java is a reference variable used inside a subclass to refer to its immediate parent class
+
+The super keyword in Java is a reference variable used inside a subclass to refer to its immediate parent class
+
+
+1)super keyword is used to access super class members inside the sub class. Using super keyword,
+we can access super class methods, super class fields and super class constructors in the sub classes.
+
+
+
+
+Key Terminology: (Important Notes) :
+- super() must be the first statement in a subclass constructor. (super class constructor is called by super() calling statement. You can’t use super() calling statement outside the constructor. By default, super() calling statement is the first statement in any constructor)
+- Cannot be used in static context.
+- Helps resolve ambiguity in method overriding and field shadowing
+
+
+
+
+
+When to Use super keyword?.
+If you want same implementation as that of super class method in the sub class, but want to add some more extra statements to it, in such cases, super keyword will be very useful. First call the super class method using super keyword and after it add extra statements according to requirements in the sub class method.
+
+
+
+
+EX .
+1)Student extends Person 
+2)Car extends Vehicle 
+3)
+
+
+class Vehicle {
+int maxSpeed = 120;
+
+
+Vehicle() {
+  System.out.println("Vehicle constructor");
+}
+void message() {
+System.out.println("This is Vehicle class");
+}
+}
+
+class Car extends Vehicle {
+int maxSpeed = 180;
+
+
+Car() {
+super(); // Must be the first statement
+System.out.println("Car constructor");
+}
+void message() {
+System.out.println("This is Car class");
+}
+
+void display() {
+System.out.println("Parent maxSpeed: " + super.maxSpeed);
+System.out.println("Child maxSpeed: " + maxSpeed);
+super.message(); // Calls Person's message()
+message(); // Calls Student's message()
+}
+}
+
+
+What is the purpose of the super keyword in Java?
+How do you call a parent class constructor using super()?
+What happens if you don’t explicitly call super() in a subclass constructor?
+Can you access overridden methods from the parent class using super?
+Can super be used in static methods?
+
+
+3-5
+Que . How does this behave in inner classes or anonymous classes?
+Ans.
+1st
+In an inner class, this refers to the current instance of the inner class, not the outer class.
+EX.
+class Outer {
+
+    int x = 10; 
+
+    class Inner {
+
+        int x = 20; 
+
+        void print() {
+            System.out.println(this.x);        // Refers to Inner's x → 20
+            System.out.println(Outer.this.x);  // Refers to Outer’s x → 10
+
+        }
+    }
+}
+Outer.this is used to refer to the outer class instance from within the inner class.
+ 
+2nd 
+In an anonymous class, this refers to the anonymous class instance, not the enclosing class.
+
+class Outer {
+    void createRunnable() {
+        Runnable r = new Runnable() {
+            public void run() {
+                System.out.println(this); // Refers to the anonymous Runnable instance
+            }
+        };
+        r.run();
+    }
+}
+Even though the anonymous class is defined inside Outer, this still refers to the anonymous class, not Outer.
+ 
+Que .
+Can you pass this as an argument to another method or constructor? Give an example.
+Ans .
+Yes, in Java, you can absolutely pass this as an argument to another method or constructor. This is commonly used when:
+
+You want to pass the current object to another class or method.
+You want to enable callback mechanisms or method chaining.
+
+
+
+
+Passing this to a Method
+class Printer {
+    void printDetails(Person p) {
+        System.out.println("Name: " + p.name);
+    }
+}
+
+class Person {
+    String name;
+
+    Person(String name) {
+        this.name = name;
+    }
+
+    void show() {
+        Printer printer = new Printer();
+        printer.printDetails(this); // Passing current object
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person p = new Person("Virendra");
+        p.show();
+    }
+}
+
+ Passing this to a Constructor
+
+
+class Engine {
+    Car car;
+    Engine(Car car) {
+        this.car = car;
+        System.out.println("Engine linked to car: " + car.model);
+    }
+}
+
+ 
+
+class Car {
+    String model = "Honda City";
+
+    Car() {
+        Engine engine = new Engine(this); // Passing current Car object
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        new Car();
+    }
+}
+
+ What Happens When You Use this in Multithreading?
+When you pass this (the current object) to a thread or share it across multiple threads, all threads operate on the same object instance. This can lead to:
+
+✅ Valid Use Case
+If the object is immutable or thread-safe, passing this is fine.
+
+❌ Risky Use Case
+If the object has mutable shared state, multiple threads can interfere with each other, causing:
+
+Race conditions
+Data inconsistency
+Unexpected behavior
+
+by handling synchronize block
+
+
+
