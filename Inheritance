@@ -1,0 +1,109 @@
+What is Inheritance?
+Ans.  Definition:
+0)Inheritance in Java is a core concept of Object-Oriented Programming (OOP)
+that allows one class to acquire the properties and behaviors (fields and methods) of another class.
+It promotes code reusability, modularity, and supports polymorphism and method overriding
+
+1)Inheritance in java is used to add additional functionalities to the existing class.
+
+
+
+
+Key Terminology:
+- Superclass (Parent Class): The class whose features are inherited.
+- Subclass (Child Class): The class that inherits from the superclass.
+- extends Keyword: Used to establish inheritance between classes.
+- IS-A Relationship: Indicates that the subclass is a type of the superclass.
+
+
+
+
+Points-To-Remember About Inheritance In Java:
+1)Constructors, SIB – Static Initialization Block and IIB – Instance Initialization Block of super class will not be inheriting to its sub class.
+But they are executed while creating an object to sub class
+2)Static members of super class are inheriting to sub class as static members and non-static members are inheriting as non-static members only
+3)By default, every class is a sub class of java.lang.Object class. So, every class in java has properties inherited from Object class
+4)Any class can not extend itself
+5)we can’t call sub class constructor from super class constructor.
+
+
+
+
+Effect of private, default, protected and public keyword on inheritance in java:
+private : Private members can not be inherited to sub class.
+Default : Default members can be inherited to sub class within package.
+protected : protected members can be inherited to any sub class but usage of protected member is limited within package.
+public : public members are inherited to all sub classes.
+
+
+
+
+Types of Inheritance in Java:
+Type:                                Description
+Single Inheritance: One subclass inherits from one superclass.
+Multilevel Inheritance: A class inherits from a subclass which itself inherits from another class.
+Hierarchical Inheritance : Multiple subclasses inherit from a single superclass.
+Multiple Inheritance: Achieved via interfaces (not supported directly with classes).
+Hybrid Inheritance: Combination of multiple types, implemented using interfaces.
+
+
+
+
+Benefits:
+Code Reusability
+Improved Maintainability
+Supports Polymorphism
+EX.
+class Animal {
+void sound() {
+System.out.println("Animal makes a sound");
+}
+}
+class Dog extends Animal {
+@Override
+void sound() {
+System.out.println("Dog barks");
+}
+}
+class Cat extends Animal {
+@Override
+void sound() {
+System.out.println("Cat meows");
+}
+}
+public class Main {
+public static void main(String[] args) {
+Animal a1 = new Dog(); // Polymorphic reference
+Animal a2 = new Cat();
+a1.sound(); // Output: Dog barks
+a2.sound(); // Output: Cat meows
+}
+}
+Encourages Abstraction 
+
+EX.
+abstract class RemoteControl {
+abstract void turnOn();
+abstract void turnOff();
+}
+
+class TVRemote extends RemoteControl {
+@Override
+void turnOn() {
+System.out.println("TV is turned ON");
+}
+
+@Override
+void turnOff() {
+System.out.println("TV is turned OFF");
+}
+}
+public class Main {
+public static void main(String[] args) {
+RemoteControl remote = new TVRemote();
+remote.turnOn(); // Output: TV is turned ON
+remote.turnOff(); // Output: TV is turned OFF
+}
+}
+
+
