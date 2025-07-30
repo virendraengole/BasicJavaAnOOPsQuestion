@@ -1,0 +1,124 @@
+What is This keyword?
+Ans.
+Definition:
+0) In Java, the this keyword is a reference to the current object—the instance of the class in which it's used.
+It helps differentiate between instance variables and method or constructor parameters
+when they share the same name, and it enables method chaining, constructor calls, and more.
+
+
+1)this keyword is used to access other members of the same class.
+Using this keyword, you can access methods, fields and constructors of the same class within the class. this refers to current instance of the class.
+
+
+Key Uses of this Keyword
+
+Use Case
+Description
+Refer to instance variables: Resolves naming conflicts between fields and parameters
+Call current class methods: Invokes methods defined in the same class
+Invoke current class constructor: Enables constructor chaining using this()
+Return current object: Useful for method chaining
+Pass current object as argument: Sends the current object to another method or constructor
+ 
+
+🧪 Example: Resolving Naming Conflict
+
+class Student { String name; Student(String name) {
+this.name = name; // 'this.name' refers to the instance variable
+}
+void display() { System.out.println("Name: " + this.name); } }
+
+Without this, name = name; would assign the parameter to itself, leaving the instance variable unchanged.
+
+🔁 Example: Constructor Chaining
+
+class Book { String title; double price; Book() {
+this("Java Book", 499.99); // Calls another constructor
+}
+Book(String title, double price) { this.title = title; this.price = price; } }
+
+ 
+
+🔗 Example: Method Chaining
+
+class Car { String brand; Car setBrand(String brand) {
+this.brand = brand; return this; // Returns current object
+}
+void display() { System.out.println("Brand: " + brand); } }
+
+Usage:
+new Car().setBrand("Tesla").display();
+
+What does the this keyword refer to in Java?
+Why do we use this in constructors?
+Can you use this to call another constructor in the same class?
+Can this be used in static methods? Why or why not?
+How does this help in method chaining?
+
+
+
+
+
+Can you call a superclass method that is overridden in the subclass? How?
+Ans.
+Yes, you can call a superclass method that has been overridden in a subclass using the super keyword.
+How to Do It
+Use super.methodName() inside the subclass to invoke the parent class's version of the method.
+EX.
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+        super.sound(); // Calls Animal's sound() method
+    }
+} 
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.sound();
+    }
+}
+Why Use super.method()?
+To reuse logic from the parent class.
+To extend behavior rather than completely replace it.
+To maintain consistency in method chaining or lifecycle methods.
+
+
+
+
+What are the rules for using super() and this() in constructors?
+Ans.
+Rule Description
+1. Must be the first statement Both super() and this()  = must be the first line in a constructor. You cannot use both in the same constructor.
+2. Only one can be used  = You can use either super() or this() in a constructor, not both.
+3. super() calls parent constructor =  If not explicitly written, Java automatically inserts a call to the no-arg constructor of the superclass.
+4. this() calls another constructor in the same class =  Useful for constructor chaining within the same class.
+5. Constructor chaining ends with super()  = If you use this() to chain constructors, the last constructor in the chain must call super() (explicitly or implicitly).
+
+
+Can you use both super() and this() in the same constructor? Why or why not?
+Ans.
+No, you cannot use both super() and this() in the same constructor in Java.
+Compilation Error:
+Constructor call must be the first statement in a constructor
+Correct Approach: Use Constructor Chaining
+You can use this() to chain constructors within the same class, and let the last constructor in the chain call super().
+
+
+How does Java handle constructor chaining with super() in multi-level inheritance?
+In multi-level inheritance, Java handles constructor chaining using super() by ensuring that each class in the hierarchy calls its immediate superclass constructor, either explicitly or implicitly. This guarantees that the entire object is properly initialized, starting from the topmost superclass down to the subclass.
+
+
+Key Rules in Multi-Level Inheritance
+Each constructor calls its superclass constructor using super().
+If super() is not explicitly written, Java inserts a call to the no-arg constructor of the superclass.
+Constructor chaining starts from the topmost superclass and flows down to the most derived subclass.
+You cannot skip levels — each class must handle its own superclass constructor.
+ 
